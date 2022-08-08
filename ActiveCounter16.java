@@ -1,4 +1,3 @@
-package virtualActiveCounter;
 import java.util.BitSet;
 import java.util.HashSet;
 import java.util.Random;
