@@ -21,4 +21,6 @@ Source IP | Destination IP | Real Flow Size
 
 where the Source IP and Destination IP combined, determine the flow ID.
 
-Give the path of these two files to the GeneralUtil.java in lines 19 and 20, respectively.
+Give the path of these two files to GeneralUtil.java in lines 19 and 20, respectively.
+
+Finally, you need to give the path of the project to GeneralUtil.java in line 14.
