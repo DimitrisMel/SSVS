@@ -1,4 +1,3 @@
-package variableCounterFast;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
@@ -7,14 +6,6 @@ import java.util.HashSet;
 import java.util.Random;
 import java.util.Scanner;
 import java.util.Set;
-
-//import minusHLLestimator.GeneralUtil;
-
-
-/** A general framework for count min. The elementary data structures to be shared here can be counter, bitmap, FM sketch, HLL sketch. Specifically, we can
- * use counter to estimate flow sizes, and use bitmap, FM sketch and HLL sketch to estimate flow cardinalities
- * @author Jay, Youlin, 2018. 
- */
 
 public class GeneralCountMin {
 	public static Random rand = new Random();
@@ -69,12 +60,9 @@ public class GeneralCountMin {
 			times = 0;
 			
 				initCM(i);
-				//getThroughput();
+
 				encodeSize(GeneralUtil.dataStreamForFlowSize);
-				//long endTime = System.nanoTime();
-				//double duration = 1.0 * (endTime - startTime) / 1000000000;
-				//System.out.println("Average execution time: " + 1.0 * duration / loops + " seconds");
-				//System.out.println("Average Throughput: " + 1.0 * n / (duration / loops) + " packets/second" );
+
 	        	estimateSize(GeneralUtil.dataSummaryForFlowSize);
 	        	times++;
 			
@@ -84,17 +72,7 @@ public class GeneralCountMin {
 		for (int i : spreadMeasurementConfig) {
 			initCM(i);
 		}
-		
-		/** experiment for specific requirement *
-		for (int i : expConfig) {
-			switch (i) {
-	        case 0:  initCM(0);
-					 encodeSize(GeneralUtil.dataStreamForFlowSize);
-					 randomEstimate(10000000);
-	                 break;
-	        default: break;
-			}
-		}*/
+
 		System.out.println("DONE!****************************");
 	}
 	
@@ -103,13 +81,9 @@ public class GeneralCountMin {
 		switch (index) {
 	        case 0: case -1: C = generateCounter();
 	                 break;
-	   
-	               
-	      
 	        default: break;
 		}
 		generateCMRamdonSeeds();
-		//System.out.println("\nCount Min-" + C[0][0].getDataStructureName() + " Initialized!");
 	}
 	
 	// Generate counter base Counter Min for flow size measurement.
@@ -125,12 +99,6 @@ public class GeneralCountMin {
 		}
 		return B;
 	}
-	
-	// Generate bitmap base Counter Min for flow cardinality measurement.
-	
-	
-	// Generate FM sketch base Counter Min for flow cardinality measurement.
-	
 	
 	// Generate random seeds for Counter Min.
 	public static void generateCMRamdonSeeds() {
@@ -202,8 +170,6 @@ public class GeneralCountMin {
 			String entry = sc.nextLine();
 			String[] strs = entry.split("\\s+");
 			String flowid = GeneralUtil.getSizeFlowID(strs, false);
-			//System.out.println("num is "+num);
-			//if (rand.nextDouble() <= GeneralUtil.getSizeSampleRate(num)) {
 			if (true) {
 				int estimate = Integer.MAX_VALUE;
 				
