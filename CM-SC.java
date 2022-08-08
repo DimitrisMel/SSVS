@@ -78,17 +78,6 @@ public class CMVariableCounter16 {
 		for (int i : spreadMeasurementConfig) {
 			initCM(i);
 		}
-		
-		/** experiment for specific requirement *
-		for (int i : expConfig) {
-			switch (i) {
-	        case 0:  initCM(0);
-					 encodeSize(GeneralUtil.dataStreamForFlowSize);
-					 randomEstimate(10000000);
-	                 break;
-	        default: break;
-			}
-		}*/
 		System.out.println("DONE!****************************");
 	}
 	
@@ -118,12 +107,6 @@ public class CMVariableCounter16 {
 		}
 		return B;
 	}
-	
-	// Generate bitmap base Counter Min for flow cardinality measurement.
-
-	
-	// Generate FM sketch base Counter Min for flow cardinality measurement.
-	
 	
 	// Generate random seeds for Counter Min.
 	public static void generateCMRamdonSeeds() {
@@ -173,14 +156,7 @@ public class CMVariableCounter16 {
 					//j =0;
 				
                  C[i][j].increaseValue(1, hashV & 3);
-                
-                 //if (n<100 && i==0 ) System.out.println(n +"\t"+C[i][j].getValue(0));
-                 
-                
              }
-			 
-               
-			
 		}
 		long endTime = System.nanoTime();
 		double duration = 1.0 * (endTime - startTime) ;
@@ -193,7 +169,7 @@ public class CMVariableCounter16 {
 	public static void estimateSize(String filePath) throws FileNotFoundException {
 		System.out.println("Estimating Flow SIZEs..." ); 
 		Scanner sc = new Scanner(new File(filePath));
-		String resultFilePath = GeneralUtil.path + "Results\\CM-SAC_" 
+		String resultFilePath = GeneralUtil.path + "Results\\CM-SC_" 
 				+ "_M_" +  M / 1024 / 1024 + "_d_" + d + "_u_" + u + "_m_" + m + "_w_" + w;
 		PrintWriter pw = new PrintWriter(new File(resultFilePath));
 		System.out.println("Result directory: " + resultFilePath); 
