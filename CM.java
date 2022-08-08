@@ -7,7 +7,7 @@ import java.util.Random;
 import java.util.Scanner;
 import java.util.Set;
 
-public class GeneralCountMin {
+public class CM {
 	public static Random rand = new Random();
 	
 	public static int n = 0; 						// total number of packets
