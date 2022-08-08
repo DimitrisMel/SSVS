@@ -1,8 +1,7 @@
-package variableCounterFast;
 import java.util.BitSet;
 import java.util.Random;
 /** The implentation of conter */
-public class VariableCounter16  {
+public class VariableCounter {
 	/** parameters for counter */
 	public static String name = "VariableCounter";							// counter data structure name
 											// the number of counters in the counter array
@@ -104,14 +103,9 @@ public class VariableCounter16  {
 		if (ran.nextInt(expexp)==0) { 
 			tempV += delta;
 			if (exp ==7 && (int)Math.abs(tempV)== (int)(Math.pow(2, 12))) {
-				//System.out.println("from small to alrge");
-				//System.out.println(getValue(0));
 				smallToLargeAC();
 				setIValue(3);
-				//System.out.println(getValue(0));
 				setLargeACValue( 10, C.get(5),(int)(Math.pow(2, 9) ));
-				//System.out.println(getValue(0));
-				
 			}
 			else {
 				if ((int)Math.abs(tempV)== (int)(Math.pow(2, 12))) {
@@ -431,9 +425,6 @@ public class VariableCounter16  {
 				else
 					increaseLargeAC(delta);
 			}
-			
 		}
-		
 	}
-	
 }
