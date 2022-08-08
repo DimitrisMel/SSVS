@@ -1,4 +1,3 @@
-package virtualActiveCounter;
 import java.util.BitSet;
 import java.util.Random;
 
@@ -8,9 +7,7 @@ public abstract class GeneralDataStructure {
 	public static Random rand = new Random();
 	// Default value for general setting.
 	public final static int DEFAULT_CONSTANT = -1;
-	//public static final BitSet FMsketchMatrix = null;
-	
-	
+
 	public GeneralDataStructure() {
 	}
 	
@@ -116,19 +113,4 @@ public abstract class GeneralDataStructure {
 		// TODO Auto-generated method stub
 		return new int [2];
 	}
-
-
-	
-
-	
-
-
-
-	
-
-	
-
-
-	
-
 }
