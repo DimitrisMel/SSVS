@@ -9,7 +9,7 @@ import java.util.Set;
 
 import variableCounter.GeneralUtil;
 
-public class VirtualCSVariableCounter19 {
+public class SSVS_2 {
 	public static Random rand = new Random();
 	
 	public static int n = 0; 						// total number of packets
