@@ -6,3 +6,7 @@ In order to run this project, you will need the source txt file in the format
 Source IP | Destination IP
 --- | --- 
 123456789 | 987654321 
+--- | --- 
+234567891 | 876543219
+--- | --- 
+... | ...
