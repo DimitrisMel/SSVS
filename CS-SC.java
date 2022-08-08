@@ -10,14 +10,6 @@ import java.util.Set;
 
 import variableCounter.GeneralUtil;
 
-//import minusHLLestimator.GeneralUtil;
-
-
-/** A general framework for count min. The elementary data structures to be shared here can be counter, bitmap, FM sketch, HLL sketch. Specifically, we can
- * use counter to estimate flow sizes, and use bitmap, FM sketch and HLL sketch to estimate flow cardinalities
- * @author Jay, Youlin, 2018. 
- */
-
 public class CSVariableCounter16 {
 	public static Random rand = new Random();
 	
@@ -71,12 +63,7 @@ public class CSVariableCounter16 {
 			times = 0;
 			
 				initCM(i);
-				//getThroughput();
 				encodeSize(GeneralUtil.dataStreamForFlowSize);
-				//long endTime = System.nanoTime();
-				//double duration = 1.0 * (endTime - startTime) / 1000000000;
-				//System.out.println("Average execution time: " + 1.0 * duration / loops + " seconds");
-				//System.out.println("Average Throughput: " + 1.0 * n / (duration / loops) + " packets/second" );
 	        	estimateSize(GeneralUtil.dataSummaryForFlowSize);
 	        	times++;
 			
@@ -87,16 +74,6 @@ public class CSVariableCounter16 {
 			initCM(i);
 		}
 		
-		/** experiment for specific requirement *
-		for (int i : expConfig) {
-			switch (i) {
-	        case 0:  initCM(0);
-					 encodeSize(GeneralUtil.dataStreamForFlowSize);
-					 randomEstimate(10000000);
-	                 break;
-	        default: break;
-			}
-		}*/
 		System.out.println("DONE!****************************");
 	}
 	
@@ -110,7 +87,6 @@ public class CSVariableCounter16 {
 	        default: break;
 		}
 		generateCMRamdonSeeds();
-		//System.out.println("\nCount Min-" + C[0][0].getDataStructureName() + " Initialized!");
 	}
 	
 	// Generate counter base Counter Min for flow size measurement.
@@ -126,12 +102,6 @@ public class CSVariableCounter16 {
 		}
 		return B;
 	}
-	
-	// Generate bitmap base Counter Min for flow cardinality measurement.
-
-	
-	// Generate FM sketch base Counter Min for flow cardinality measurement.
-	
 	
 	// Generate random seeds for Counter Min.
 	public static void generateCMRamdonSeeds() {
@@ -199,7 +169,7 @@ public class CSVariableCounter16 {
 	public static void estimateSize(String filePath) throws FileNotFoundException {
 		System.out.println("Estimating Flow SIZEs..." ); 
 		Scanner sc = new Scanner(new File(filePath));
-		String resultFilePath = GeneralUtil.path + "Results\\CS-SAC_" 
+		String resultFilePath = GeneralUtil.path + "Results\\CS-SC_" 
 				+ "_M_" +  M / 1024 / 1024 + "_d_" + d + "_u_" + u + "_m_" + m + "_w_" + w;
 		PrintWriter pw = new PrintWriter(new File(resultFilePath));
 		System.out.println("Result directory: " + resultFilePath); 
@@ -207,8 +177,6 @@ public class CSVariableCounter16 {
 			String entry = sc.nextLine();
 			String[] strs = entry.split("\\s+");
 			String flowid = GeneralUtil.getSizeFlowID(strs, false);
-			//System.out.println("num is "+num);
-			//if (rand.nextDouble() <= GeneralUtil.getSizeSampleRate(num)) {
 			int[] value= new int[d];
 			if (true) {
 				int estimate = Integer.MAX_VALUE;
