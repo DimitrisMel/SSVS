@@ -10,14 +10,6 @@ import java.util.Set;
 
 import variableCounter.GeneralUtil;
 
-//import minusHLLestimator.GeneralUtil;
-
-
-/** A general framework for count min. The elementary data structures to be shared here can be counter, bitmap, FM sketch, HLL sketch. Specifically, we can
- * use counter to estimate flow sizes, and use bitmap, FM sketch and HLL sketch to estimate flow cardinalities
- * @author Jay, Youlin, 2018. 
- */
-
 public class CUVariableCounter16{
 	public static Random rand = new Random();
 	
@@ -86,17 +78,6 @@ public class CUVariableCounter16{
 		for (int i : spreadMeasurementConfig) {
 			initCM(i);
 		}
-		
-		/** experiment for specific requirement *
-		for (int i : expConfig) {
-			switch (i) {
-	        case 0:  initCM(0);
-					 encodeSize(GeneralUtil.dataStreamForFlowSize);
-					 randomEstimate(10000000);
-	                 break;
-	        default: break;
-			}
-		}*/
 		System.out.println("DONE!****************************");
 	}
 	
@@ -126,12 +107,6 @@ public class CUVariableCounter16{
 		}
 		return B;
 	}
-	
-	// Generate bitmap base Counter Min for flow cardinality measurement.
-
-	
-	// Generate FM sketch base Counter Min for flow cardinality measurement.
-	
 	
 	// Generate random seeds for Counter Min.
 	public static void generateCMRamdonSeeds() {
@@ -217,7 +192,7 @@ public class CUVariableCounter16{
 	public static void estimateSize(String filePath) throws FileNotFoundException {
 		System.out.println("Estimating Flow SIZEs..." ); 
 		Scanner sc = new Scanner(new File(filePath));
-		String resultFilePath = GeneralUtil.path + "Results\\CU-SAC_"
+		String resultFilePath = GeneralUtil.path + "Results\\CU-SC_"
 				+ "_M_" +  M / 1024 / 1024 + "_d_" + d + "_u_" + u + "_m_" + m + "_w_" + w;
 		PrintWriter pw = new PrintWriter(new File(resultFilePath));
 		System.out.println("Result directory: " + resultFilePath); 
