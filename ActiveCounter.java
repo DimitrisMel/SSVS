@@ -1,4 +1,3 @@
-package activeCounter;
 import java.util.BitSet;
 import java.util.Random;
 /** The implentation of active counter */
