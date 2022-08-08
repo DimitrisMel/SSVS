@@ -1,4 +1,3 @@
-package variableCounterFast;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
@@ -9,14 +8,6 @@ import java.util.Scanner;
 import java.util.Set;
 
 import variableCounter.GeneralUtil;
-
-//import minusHLLestimator.GeneralUtil;
-
-
-/** A general framework for count min. The elementary data structures to be shared here can be counter, bitmap, FM sketch, HLL sketch. Specifically, we can
- * use counter to estimate flow sizes, and use bitmap, FM sketch and HLL sketch to estimate flow cardinalities
- * @author Jay, Youlin, 2018. 
- */
 
 public class VirtualCSVariableCounter19 {
 	public static Random rand = new Random();
@@ -71,12 +62,7 @@ public class VirtualCSVariableCounter19 {
 			times = 0;
 			
 				initCM(i);
-				//getThroughput();
 				encodeSize(GeneralUtil.dataStreamForFlowSize);
-				//long endTime = System.nanoTime();
-				//double duration = 1.0 * (endTime - startTime) / 1000000000;
-				//System.out.println("Average execution time: " + 1.0 * duration / loops + " seconds");
-				//System.out.println("Average Throughput: " + 1.0 * n / (duration / loops) + " packets/second" );
 	        	estimateSize(GeneralUtil.dataSummaryForFlowSize);
 	        	times++;
 			
@@ -86,17 +72,6 @@ public class VirtualCSVariableCounter19 {
 		for (int i : spreadMeasurementConfig) {
 			initCM(i);
 		}
-		
-		/** experiment for specific requirement *
-		for (int i : expConfig) {
-			switch (i) {
-	        case 0:  initCM(0);
-					 encodeSize(GeneralUtil.dataStreamForFlowSize);
-					 randomEstimate(10000000);
-	                 break;
-	        default: break;
-			}
-		}*/
 		System.out.println("DONE!****************************");
 	}
 	
@@ -110,7 +85,6 @@ public class VirtualCSVariableCounter19 {
 	        default: break;
 		}
 		generateCMRamdonSeeds();
-		//System.out.println("\nCount Min-" + C[0][0].getDataStructureName() + " Initialized!");
 	}
 	
 	// Generate counter base Counter Min for flow size measurement.
@@ -126,12 +100,6 @@ public class VirtualCSVariableCounter19 {
 		}
 		return B;
 	}
-	
-	// Generate bitmap base Counter Min for flow cardinality measurement.
-
-	
-	// Generate FM sketch base Counter Min for flow cardinality measurement.
-	
 	
 	// Generate random seeds for Counter Min.
 	public static void generateCMRamdonSeeds() {
@@ -178,8 +146,6 @@ public class VirtualCSVariableCounter19 {
 					//j =0;
                     if ((hashV&2) ==0) C[0][j].increaseValue(delta, 0);
                     else C[0][j].increaseValue(delta, 1);
-                    //if (n<100 && i==0 ) System.out.println(n +"\t"+C[i][j].getValue(0));
-			
 		}
 		long endTime = System.nanoTime();
 		double duration = 1.0 * (endTime - startTime) ;
@@ -192,7 +158,7 @@ public class VirtualCSVariableCounter19 {
 	public static void estimateSize(String filePath) throws FileNotFoundException {
 		System.out.println("Estimating Flow SIZEs..." ); 
 		Scanner sc = new Scanner(new File(filePath));
-		String resultFilePath = GeneralUtil.path + "Results\\SSVS-2_VirtualCSVariableCounter19_"
+		String resultFilePath = GeneralUtil.path + "Results\\SSVS-2_"
 				+ "_M_" +  M / 1024 / 1024 + "_d_" + d + "_u_" + u + "_m_" + m + "_w_" + w;
 		PrintWriter pw = new PrintWriter(new File(resultFilePath));
 		System.out.println("Result directory: " + resultFilePath); 
@@ -222,8 +188,7 @@ public class VirtualCSVariableCounter19 {
 			String entry = sc.nextLine();
 			String[] strs = entry.split("\\s+");
 			String flowid = GeneralUtil.getSizeFlowID(strs, false);
-			//System.out.println("num is "+num);
-			//if (rand.nextDouble() <= GeneralUtil.getSizeSampleRate(num)) {
+			
 			int[] value = new int[d];
 			
 			if (true) {
