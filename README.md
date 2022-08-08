@@ -23,4 +23,4 @@ where the Source IP and Destination IP combined, determine the flow ID.
 
 Give the path of these two files to GeneralUtil.java in lines 19 and 20, respectively.
 
-Finally, you need to give the path of the project (the parent folder of src) to GeneralUtil.java in line 14 and create a folder named Results in the parent folder of src.
+Finally, you need to give the path of the project (the parent folder of src) to GeneralUtil.java in line 14 and create a folder named Results in same directory as src.
