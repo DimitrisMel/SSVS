@@ -16,22 +16,13 @@ public class GeneralUtil {
 	public static HashSet<Integer> set1=new HashSet<Integer>(),set2=new HashSet<Integer>();
 	public static String testresult = "\\G:\\";
 	/** parameter for estimation on a single source **/
-	public static String dataStreamForFlowSize = "\\C:\\"; // "\\G:\\CAIDA\\traffic\\traffic.txt";		//"\\G:\\CAIDA\\final_result_1\\output.txt";  /* path + "traffic\\CAIDA_data0_statistics_size.txt";*/
-	public static String dataSummaryForFlowSize = "\\C:\\"; //path + "traffic\\CAIDA_data0_statistics_size.txt";
-	public static String dataStreamForFlowSpread = "\\C:\\"; //path + "traffic\\10MPackets.txt";
-	public static String dataSummaryForFlowSpread = "\\C:\\";
-	public static String dataStreamForFlowThroughput = "\\C:\\";
+	public static String dataStreamForFlowSize = "\\C:\\";
+	public static String dataSummaryForFlowSize = "\\C:\\";
 	public static Double throughputSamplingRate = 1.0;
 	public static int maxRange = 1000000;
 	public static int totalenum=0;
 	
-	/** parameters for joint estimation on multiple sources**/
-	public static String dataStreamForJointFlowSize = "\\G:\\"; // "\\G:\\CAIDA\\traffic\\traffic.txt";		//"\\G:\\CAIDA\\final_result_1\\output.txt";  /* path + "traffic\\CAIDA_data0_statistics_size.txt";*/
-	public static String dataSummaryForJointFlowSize = "\\G:\\"; //path + "traffic\\CAIDA_data0_statistics_size.txt";
-	public static String dataStreamForJointFlowSpread =  "\\G:\\"; //path + "traffic\\10MPackets.txt";
-	public static String dataSummaryForJointFlowSpread = "\\G:\\";//path + "traffic\\10MCardinality.txt";
-	
-	public static ArrayList<Integer> bin = new ArrayList<>(Arrays.asList(10, 100, 1_000, 10_000, 1_000_000));//for VirtualCSVariable counter
+	public static ArrayList<Integer> bin = new ArrayList<>(Arrays.asList(10, 100, 1_000, 10_000, 1_000_000));
 
 	public static ArrayList<Integer> smallBin = new ArrayList<>(Arrays.asList(2, 4, 10, 20, 40, 60, 100, 400,500,600,700,900, 1000, 1500));
 	
