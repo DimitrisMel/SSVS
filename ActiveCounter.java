@@ -1,8 +1,8 @@
 package activeCounter;
 import java.util.BitSet;
 import java.util.Random;
-/** The implentation of conter */
-public class VariableCounter16  {
+/** The implentation of active counter */
+public class ActiveCounter  {
 	/** parameters for counter */
 	public static String name = "ActiveCounter";							// counter data structure name
 											// the number of counters in the counter array
@@ -28,8 +28,7 @@ public class VariableCounter16  {
 			int absV = getBitSetValue(1,10);
 			if (C.get(0)) return (int)(absV * Math.pow(2, exp));
 			else return -(int)(absV * Math.pow(2, exp));
-		
-		
+
 	}
 	
 	public void increaseExp(int delta) {
@@ -72,7 +71,6 @@ public class VariableCounter16  {
 					C.set(i);
 				}
 				else {
-					//System.out.println("before "+getValue(0));
 					C.set(10);//System.out.println("---"+getValue(0));
 					increaseExp(1);//System.out.println("after "+getValue(0));
 				}
@@ -118,9 +116,6 @@ public class VariableCounter16  {
 		int expexp = (int)Math.pow(2, exp);
 		Random rand = new Random();
 		if (rand.nextInt(expexp)==0)
-					increaseValue(delta);
-			
-		
+			increaseValue(delta);
 	}
-	
 }
