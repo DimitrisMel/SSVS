@@ -16,14 +16,14 @@ import java.util.Set;
  * @author Jay, Youlin, 2018. 
  */
 
-public class CU {
+public class CSVariableCounter16 {
 	public static Random rand = new Random();
 	
 	public static int n = 0; 						// total number of packets
 	public static int flows = 0; 					// total number of flows
 	public static int avgAccess = 0; 				// average memory access for each packet
 	public static final int M = 1024 * 1024; 	// total memory space Mbits	
-	public static GeneralDataStructure[][] C;
+	public static VariableCounter16[][] C;
 	public static Set<Integer> sizeMeasurementConfig = new HashSet<>(Arrays.asList(0)); // -1-regular CM; 0-enhanced CM; 1-Bitmap; 2-FM sketch; 3-HLL sketch
 	public static Set<Integer> spreadMeasurementConfig = new HashSet<>(Arrays.asList()); // 1-Bitmap; 2-FM sketch; 3-HLL sketch
 	public static Set<Integer> expConfig = new HashSet<>(Arrays.asList()); //0-ECountMin dist exp
@@ -39,7 +39,7 @@ public class CU {
 	
 	/** parameters for counter */
 	public static int mValueCounter = 1;			// only one counter in the counter data structure
-	public static int counterSize = 32;				// size of each unit
+	public static int counterSize = 18;				// size of each unit
 
 	/** parameters for bitmap */
 	public static final int bitArrayLength = 5000;
@@ -103,8 +103,7 @@ public class CU {
 		switch (index) {
 	        case 0: case -1: C = generateCounter();
 	                 break;
-	   
-	               
+	      
 	      
 	        default: break;
 		}
@@ -113,21 +112,21 @@ public class CU {
 	}
 	
 	// Generate counter base Counter Min for flow size measurement.
-	public static Counter[][] generateCounter() {
+	public static VariableCounter16[][] generateCounter() {
 		m = mValueCounter;
 		u = counterSize * mValueCounter;
 		w = (M / u) / d;
-		Counter[][] B = new Counter[d][w];
+		VariableCounter16[][] B = new VariableCounter16[d][w];
 		for (int i = 0; i < d; i++) {
 			for (int j = 0; j < w; j++) {
-				B[i][j] = new Counter(1, counterSize);
+				B[i][j] = new VariableCounter16();
 			}
 		}
 		return B;
 	}
 	
 	// Generate bitmap base Counter Min for flow cardinality measurement.
-	
+
 	
 	// Generate FM sketch base Counter Min for flow cardinality measurement.
 	
@@ -148,7 +147,7 @@ public class CU {
 
 	/** Encode elements to the Count Min for flow size measurement. */
 	public static void encodeSize(String filePath) throws FileNotFoundException {
-		System.out.println("Encoding elements using " + C[0][0].getDataStructureName().toUpperCase() + "s..." );
+		System.out.println("Encoding elements using " +  "s..." );
 		Scanner sc = new Scanner(new File(filePath));
 		n = 0;
 		
@@ -168,29 +167,22 @@ public class CU {
 			String flowid = flowida[ii];
 			ii++;
 			
+				
+                for (int i = 0; i < d; i++) {
+                    int hashV = GeneralUtil.intHash(GeneralUtil.FNVHash1(flowid) ^ S[i]) ;
+                    int delta = 1;
+                    if ((hashV & 1) ==0) delta =-1;
+                    int j = hashV >>>2;
+					j =(j % w + w) % w;
+					//j =0;
+                    if ((hashV&2) ==0) C[i][j].increaseValue(delta, 0);
+                    else C[i][j].increaseValue(delta, 1);
+                    //if (n<100 && i==0 ) System.out.println(n +"\t"+C[i][j].getValue(0));
+                    
+                   
+                }
+               
 			
-			int[] hashIndex = new int[d];
-			int[] hashValue = new int[d];
-			if (C[0][0].getDataStructureName().equals("Counter")) {
-				int minVal = Integer.MAX_VALUE;
-                for (int i = 0; i < d; i++) {
-                    int j = (GeneralUtil.intHash(GeneralUtil.FNVHash1(flowid) ^ S[i]) % w + w) % w;
-                    hashIndex[i] = j;
-                    hashValue[i] = C[i][j].getValue();
-                    minVal = Math.min(minVal, C[i][j].getValue());
-                }
-                for (int i = 0; i < d; i++) {
-		            int j = hashIndex[i];
-		            if (hashValue[i] == minVal) {
-		            	C[i][j].encode();           
-		            }
-                }
-			} else {
-				for (int i = 0; i < d; i++) {
-					int j = (GeneralUtil.intHash(GeneralUtil.FNVHash1(flowid) ^ S[i]) % w + w) % w; 
-					C[i][j].encode();
-				}
-			}
 		}
 		long endTime = System.nanoTime();
 		double duration = 1.0 * (endTime - startTime) ;
@@ -203,8 +195,8 @@ public class CU {
 	public static void estimateSize(String filePath) throws FileNotFoundException {
 		System.out.println("Estimating Flow SIZEs..." ); 
 		Scanner sc = new Scanner(new File(filePath));
-		String resultFilePath = GeneralUtil.path + "Results\\CU_"
-				+ "_M_" +  M / 1024 / 1024 + "_d_" + d + "_u_" + u + "_m_" + m + "_T_" + times;
+		String resultFilePath = GeneralUtil.path + "Results\\CS-VC_" 
+				+ "_M_" +  M / 1024 / 1024 + "_d_" + d + "_u_" + u + "_m_" + m + "_w_" + w;
 		PrintWriter pw = new PrintWriter(new File(resultFilePath));
 		System.out.println("Result directory: " + resultFilePath); 
 		while (sc.hasNextLine()) {
@@ -213,13 +205,23 @@ public class CU {
 			String flowid = GeneralUtil.getSizeFlowID(strs, false);
 			//System.out.println("num is "+num);
 			//if (rand.nextDouble() <= GeneralUtil.getSizeSampleRate(num)) {
+			int[] value= new int[d];
 			if (true) {
 				int estimate = Integer.MAX_VALUE;
 				
 				for(int i = 0; i < d; i++) {
-					int j = (GeneralUtil.intHash(GeneralUtil.FNVHash1(flowid) ^ S[i]) % w + w) % w;
-					estimate = Math.min(estimate, C[i][j].getValue());
+					int hashV = GeneralUtil.intHash(GeneralUtil.FNVHash1(flowid) ^ S[i]);
+					int j = hashV>>>2;
+					j = (j % w + w) % w;
+					//j =0;
+					int delta =1;
+					if ((hashV & 1) ==0) delta =-1;
+					if ( (hashV &2)==0) value[i] = delta * C[i][j].getValue(0);
+					else value[i] = delta * C[i][j].getValue(1);
 				}
+				Arrays.parallelSort(value);
+				estimate = (d%2)==1?(value[(d-1)/2]):(value[d/2]+value[d/2-1])/2;
+				if (estimate<0) estimate =0;
 				pw.println(entry + "\t" + estimate);
 			}
 		}

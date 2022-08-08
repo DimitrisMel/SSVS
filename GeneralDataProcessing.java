@@ -1,3 +1,4 @@
+package variableCounterFast;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
@@ -15,6 +16,18 @@ import java.util.Random;
 import java.util.Scanner;
 import java.util.Set;
 import java.util.HashMap;
+
+/**
+ * Raw Data: 
+ * 1) useful from 2rd line;
+ * 2) format: (Date first seen) (Date last seen) (Src IP Addr:Port) (Dst IP Addr:Port) (Packets) (Bytes)
+ * process raw data from UF to feed into GSB and GVS:
+ * 1) extract src IP and dstIP;
+ * 2) get flow size and spread;
+ * 3) get combined flow size and spread
+ * @author Youlin
+ *
+ */
 
 public class GeneralDataProcessing {
 	public static String path = "\\D:\\GeneralFramework\\";
@@ -34,9 +47,47 @@ public class GeneralDataProcessing {
 	public static Set<String> timeStampsToBeJoint = new HashSet<> ();
 	
 	public static void main(String[] args) throws FileNotFoundException {
-	
-		getPerSourceStatistics("","events","","dst");
 		
+		/* extract src IP and dst IP from raw data 
+		for (String router: routersToBeProcessed) {
+			for (int i = 0; i < numOfFiles; i++) {
+				String timeStamp = timeStampToString(i * time_itvl);
+				extractIPs(date, timeStamp, router);
+			}
+		}*/
+		
+		 //get size/spread of each source file 
+		/*for (String router: routersToBeProcessed) {
+			for (int i = 0; i < numOfFiles; i++) {
+				String timeStamp = timeStampToString(i * time_itvl);
+				for (String flowLabel: flowLabels) {
+					getPerSourceStatistics(date, timeStamp, router, flowLabel);
+				}
+			}
+		}*/
+		/*Scanner sc = new Scanner(new File(path + "events.csv"));
+		String outputSizeFileName = "events.txt";
+		PrintWriter pw = new PrintWriter(new File(path + outputSizeFileName));	
+		String haha = sc.nextLine();
+		while (sc.hasNext()) {
+			String entry = sc.nextLine();
+			String[] strs = entry.split(",");
+			pw.println(strs[1]+"\t"+strs[3]);
+		}
+		
+		pw.close();
+		sc.close();*/
+		getPerSourceStatistics("","events","","dst");
+		/* spatial join statistics 
+		String timeStamp = timeStampToString(0);
+		spatialJoinStatistics(date, timeStamp, routersToBeSJoint, "src");*/
+		
+		/* temporal join statistics */
+		/*for (int i = 0;  i < numOfJointTimes; i++) {
+			timeStampsToBeJoint.add(timeStampToString(i * time_itvl));
+		}
+		temporalJoinStatistics(date, timeStampsToBeJoint, routerToBeTJoint, "src");
+		*/
 		System.out.println("DONE!!!!!!!!!!!!!!!!!");		
 		
 	}
@@ -135,7 +186,44 @@ public class GeneralDataProcessing {
 			pw.close();		
 			sc.close();
 			
-			
+			/** for Spreadinput*
+			sc = new Scanner(new File(path + inputFileName));
+			String SpreadFileName = "\\" + flowLabel + "_spread_" + inputFileName;
+
+			pw = new PrintWriter(new File(path + SpreadFileName));
+
+			List<String> sortElement = new ArrayList<>();
+			while (sc.hasNext()) {
+				String entry = sc.nextLine();
+				String[] strs = entry.split("\\s+");
+				String srcIP = strs[0], dstIP = strs[1];
+				String flowelement = srcIP+'\t'+dstIP;
+				sortElement.add(flowelement);
+			}
+			Collections.sort(sortElement);
+			mp.clear();
+			String prioStr = "1\t4";
+			for (String entry: sortElement) {
+				String[] strs = entry.split("\\s+");
+				String srcIP = strs[0];
+				String dstIP = strs[1];
+				strs = prioStr.split("\\s+");
+				String srcIP1 = strs[0];
+				String dstIP1 = strs[1];
+				//System.out.println(srcIP+'\t'+dstIP+"\n"+srcIP1+'\t'+dstIP1);
+				//System.out.println(Long.parseLong(srcIP1)==Long.parseLong(srcIP));
+				//System.out.println(Long.parseLong(dstIP1)==Long.parseLong(dstIP));
+				if (Long.parseLong(srcIP1)==Long.parseLong(srcIP) &&Long.parseLong(dstIP1)==Long.parseLong(dstIP)) {
+					//System.out.println(prioStr+" "+entry);
+					continue;}
+				else {
+					prioStr = entry;
+					pw.println(entry);
+				}
+				
+			}
+			pw.close();		
+			sc.close();*/
 		} else if (flowLabel.equals("dst")) {	// per-destination flow
 			/** For flow size **/
 			Scanner sc = new Scanner(new File(path + inputFileName));
@@ -230,7 +318,11 @@ public class GeneralDataProcessing {
 				strs = prioStr2.split("\\s+");
 				String srcIP1 = strs[0];
 				String dstIP1 = strs[1];
+				//System.out.println(srcIP+'\t'+dstIP+"\n"+srcIP1+'\t'+dstIP1);
+				//System.out.println(Long.parseLong(srcIP1)==Long.parseLong(srcIP));
+				//System.out.println(Long.parseLong(dstIP1)==Long.parseLong(dstIP));
 				if (Long.parseLong(srcIP1)==Long.parseLong(srcIP) &&Long.parseLong(dstIP1)==Long.parseLong(dstIP)) {
+					//System.out.println(prioStr+" "+entry);
 					continue;}
 				else { 
 					prioStr2 = entry;
@@ -260,6 +352,29 @@ public class GeneralDataProcessing {
 			}
 			pw.close();
 			sc.close();
+			
+			/** For flow spread **/
+			/*sc = new Scanner(new File(path + "\\processed\\" + routerName + "\\" + inputFileName));
+			String outputSpreadFileName = flowLabel + "Spread" + date + timeStamp + ".txt";
+			pw = new PrintWriter(new File(path + "\\statistics\\" + routerName + "\\" + outputSpreadFileName));	
+			HashMap<String, HashSet<String>> mp_spread = new HashMap<>();
+			while (sc.hasNext()) {
+				String entry = sc.nextLine();
+				String[] strs = entry.split("\\s+");
+				String srcIP = strs[0], dstIP = strs[1];
+				if (!mp_spread.containsKey(dstIP)) mp_spread.put(dstIP, new HashSet<String> ());
+				mp_spread.get(dstIP).add(srcIP);
+			}
+			mp.clear();
+			for (Map.Entry<String, HashSet<String>> entry: mp_spread.entrySet()) {
+				mp.put(entry.getKey(), entry.getValue().size());
+			}
+			result = sortByValue(mp);
+			for (Map.Entry<String, Integer> entry: result.entrySet()) {
+				pw.println(entry.getKey() + "\t" + entry.getValue());
+			}
+			pw.close();		
+			sc.close();*/
 			
 		} else {
 			System.out.println("Labels other than source/destination IP!");

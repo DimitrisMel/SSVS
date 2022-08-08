@@ -16,7 +16,7 @@ import java.util.Set;
  * @author Jay, Youlin, 2018. 
  */
 
-public class CU {
+public class GeneralCountMin {
 	public static Random rand = new Random();
 	
 	public static int n = 0; 						// total number of packets
@@ -169,22 +169,13 @@ public class CU {
 			ii++;
 			
 			
-			int[] hashIndex = new int[d];
-			int[] hashValue = new int[d];
+			
 			if (C[0][0].getDataStructureName().equals("Counter")) {
-				int minVal = Integer.MAX_VALUE;
                 for (int i = 0; i < d; i++) {
                     int j = (GeneralUtil.intHash(GeneralUtil.FNVHash1(flowid) ^ S[i]) % w + w) % w;
-                    hashIndex[i] = j;
-                    hashValue[i] = C[i][j].getValue();
-                    minVal = Math.min(minVal, C[i][j].getValue());
+                   C[i][j].encode();
                 }
-                for (int i = 0; i < d; i++) {
-		            int j = hashIndex[i];
-		            if (hashValue[i] == minVal) {
-		            	C[i][j].encode();           
-		            }
-                }
+               
 			} else {
 				for (int i = 0; i < d; i++) {
 					int j = (GeneralUtil.intHash(GeneralUtil.FNVHash1(flowid) ^ S[i]) % w + w) % w; 
@@ -203,7 +194,7 @@ public class CU {
 	public static void estimateSize(String filePath) throws FileNotFoundException {
 		System.out.println("Estimating Flow SIZEs..." ); 
 		Scanner sc = new Scanner(new File(filePath));
-		String resultFilePath = GeneralUtil.path + "Results\\CU_"
+		String resultFilePath = GeneralUtil.path + "Results\\CM_"
 				+ "_M_" +  M / 1024 / 1024 + "_d_" + d + "_u_" + u + "_m_" + m + "_T_" + times;
 		PrintWriter pw = new PrintWriter(new File(resultFilePath));
 		System.out.println("Result directory: " + resultFilePath); 
