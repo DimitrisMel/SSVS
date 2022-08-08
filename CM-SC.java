@@ -10,14 +10,6 @@ import java.util.Set;
 
 import variableCounter.GeneralUtil;
 
-//import minusHLLestimator.GeneralUtil;
-
-
-/** A general framework for count min. The elementary data structures to be shared here can be counter, bitmap, FM sketch, HLL sketch. Specifically, we can
- * use counter to estimate flow sizes, and use bitmap, FM sketch and HLL sketch to estimate flow cardinalities
- * @author Jay, Youlin, 2018. 
- */
-
 public class CMVariableCounter16 {
 	public static Random rand = new Random();
 	
@@ -209,8 +201,6 @@ public class CMVariableCounter16 {
 			String entry = sc.nextLine();
 			String[] strs = entry.split("\\s+");
 			String flowid = GeneralUtil.getSizeFlowID(strs, false);
-			//System.out.println("num is "+num);
-			//if (rand.nextDouble() <= GeneralUtil.getSizeSampleRate(num)) {
 			int[] value= new int[d];
 			if (true) {
 				int estimate = Integer.MAX_VALUE;
@@ -226,8 +216,6 @@ public class CMVariableCounter16 {
 					
 					if (value[i] <estimate) estimate = value[i];
 				}
-				//Arrays.parallelSort(value);
-				//estimate = (d%2)==1?(value[(d-1)/2]):(value[d/2]+value[d/2-1])/2;
 				if (estimate<0) estimate =0;
 				pw.println(entry + "\t" + estimate);
 			}
