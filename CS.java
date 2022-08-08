@@ -7,7 +7,7 @@ import java.util.Random;
 import java.util.Scanner;
 import java.util.Set;
 
-public class GeneralCS {
+public class CS {
 	public static Random rand = new Random();
 	
 	public static int n = 0; 						// total number of packets
