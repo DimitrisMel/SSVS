@@ -1,7 +1,7 @@
 # Single Update Sketch with Variable Counter Structure (SSVS)
 Paper #206 submitted to Infocom 2023
 
-In order to run this project, you will need a source txt file in the format
+In order to run this project, you will need a packet stream txt file in the format
 
 Source IP | Destination IP
 --- | --- 
