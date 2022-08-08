@@ -9,7 +9,7 @@ import java.util.Set;
 
 import variableCounter.GeneralUtil;
 
-public class CMVariableCounter16 {
+public class CM-SC {
 	public static Random rand = new Random();
 	
 	public static int n = 0; 						// total number of packets
