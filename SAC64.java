@@ -1,6 +1,5 @@
-package selfAdjustingCounterFast;
 import java.util.BitSet;
-/** The implentation of counter */
+/** The implentation of SAC */
 public class SAC64  {
 	/** parameters for counter */
 	public static String name = "VariableCounter";							// counter data structure name
