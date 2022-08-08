@@ -9,7 +9,7 @@ import java.util.Set;
 
 import variableCounter.GeneralUtil;
 
-public class CS-SC {
+public class CS_SC {
 	public static Random rand = new Random();
 	
 	public static int n = 0; 						// total number of packets
