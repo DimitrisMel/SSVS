@@ -21,7 +21,7 @@ public class SSVS_1 {
 	public static boolean isGetThroughput =false;
 	
 	/** parameters for count-min */
-	public static final int d = 32; 			// the number of rows in Count Min
+	public static final int d = 1; 			// the number of rows in Count Min
 	public static int w = 1;				// the number of columns in Count Min
 	public static int u = 1;				// the size of each elementary data structure in Count Min.
 	public static int[] S = new int[d];		// random seeds for Count Min
