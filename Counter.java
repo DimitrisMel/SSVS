@@ -1,4 +1,3 @@
-package variableCounterFast;
 import java.util.BitSet;
 import java.util.HashSet;
 
@@ -59,7 +58,6 @@ public class Counter extends GeneralDataStructure {
 	}
 	
 	public void insertSubFlow(int flowid, int subFlowSize) {
-		//int k = rand.nextInt(m);
 		// Check the threshold first, then encode an element in to the counter.
 		
 			counters[0]=flowid;
@@ -73,11 +71,8 @@ public class Counter extends GeneralDataStructure {
 		//}
 	}
 	public void encodeBtSubFlow() {
-		//int k = rand.nextInt(m);
-		// Check the threshold first, then encode an element in to the counter.
-		//if (counters[k] < counterThreshold) {
-			counters[1]+=1;
-		//}
+		counters[1]+=1;
+
 	}
 	public void encode() {
 		int k = rand.nextInt(m);
@@ -158,7 +153,6 @@ public class Counter extends GeneralDataStructure {
 			counters[i] ++;
 			}
 		}
-		
 	}
 	
 	
@@ -172,8 +166,6 @@ public class Counter extends GeneralDataStructure {
 		k = (k % w + w) % w;
 		int i = j * w + k;
 		if (counters[i] < counterThreshold) {
-			//if (isMinus) counters[i]--;
-			//else 
 			counters[i] ++;
 		}
 	}
@@ -272,12 +264,9 @@ public class Counter extends GeneralDataStructure {
 		
 		for (int j = 0; j < ms; j++) {
 			int k =GeneralUtil.intHash(GeneralUtil.FNVHash1(flowID) ^ s[j]);
-			//int minus=Integer.numberOfLeadingZeros(k)>=1?-1:1;
 			int i = j * w + (k % w + w) % w;
 			sum += counters[i];
-			//if (minus*counters[i]<0) System.out.println(minus*counters[i]);//(minus*counters[i])>=0?minus*counters[i]:0;
 		}
-		//if (sum<0) System.out.println(sum);
  		return sum;
 	}
 	
@@ -306,13 +295,11 @@ public class Counter extends GeneralDataStructure {
 		for (int k: index_sampled) {
 			sum += counters[k];
 		}
-		//System.out.println("Sampled virtual sketch size: " + index_sampled.size() + "\nOriginal virtual sketch size: " + ms);
 		return sum;
 	}
 
 	@Override
 	public void encode(int flowID, int elementID, int[] s) {
-		// TODO Auto-generated method stub
 		
 	}
 	@Override
