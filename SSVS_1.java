@@ -21,10 +21,10 @@ public class SSVS_1 {
 	public static boolean isGetThroughput =false;
 	
 	/** parameters for count-min */
-	public static final int d = 1; 			// the number of rows in Count Min
-	public static int w = 1;				// the number of columns in Count Min
-	public static int u = 1;				// the size of each elementary data structure in Count Min.
-	public static int[] S = new int[d];		// random seeds for Count Min
+	public static final int d = 1; 			// the number of rows
+	public static int w = 1;				// the number of columns
+	public static int u = 1;				// the size of each elementary data structure
+	public static int[] S = new int[d];		// random seeds
 	public static int m = 1;				// number of bit/register in each unit (used for bitmap, FM sketch and HLL sketch)
 
 	
