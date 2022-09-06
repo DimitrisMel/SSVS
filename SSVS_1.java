@@ -166,9 +166,6 @@ public class SSVS_1 {
 					value[i] = tempV;
 					
 				}
-				
-				
-				
 				if (estimate<0) estimate =0;
 				pw.println(entry + "\t" + estimate);
 			}
