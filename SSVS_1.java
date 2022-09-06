@@ -32,17 +32,6 @@ public class SSVS_1 {
 	public static int mValueCounter = 1;			// only one counter in the counter data structure
 	public static int counterSize = 18;				// size of each unit
 
-	/** parameters for bitmap */
-	public static final int bitArrayLength = 5000;
-	
-	/** parameters for FM sketch **/
-	public static int mValueFM = 128;
-	public static final int FMsketchSize = 32;
-	
-	/** parameters for HLL sketch **/
-	public static int mValueHLL = 128;
-	public static final int HLLSize = 5;
-
 	public static int times = 0;
 	
 	/** number of runs for throughput measurement */
