@@ -16,7 +16,6 @@ public class SSVS_2 {
 	public static final int M = 1024 * 1024; 	// total memory space in bits	
 	public static VariableCounter[][] C;
 	public static Set<Integer> sizeMeasurementConfig = new HashSet<>(Arrays.asList(0));
-	public static Set<Integer> spreadMeasurementConfig = new HashSet<>(Arrays.asList());
 	public static Set<Integer> expConfig = new HashSet<>(Arrays.asList()); //0-ECountMin dist exp
 	public static boolean isGetThroughput =false;
 	
@@ -64,11 +63,6 @@ public class SSVS_2 {
 	        	estimateSize(GeneralUtil.dataSummaryForFlowSize);
 	        	times++;
 			
-		}
-		
-		/** measurement for flow spreads **/
-		for (int i : spreadMeasurementConfig) {
-			initCM(i);
 		}
 		System.out.println("DONE!****************************");
 	}
