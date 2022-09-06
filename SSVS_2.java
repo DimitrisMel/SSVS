@@ -56,12 +56,10 @@ public class SSVS_2 {
 		
 		for (int i : sizeMeasurementConfig) {
 			times = 0;
-			
-				initCM(i);
-				encodeSize(GeneralUtil.dataStreamForFlowSize);
+			initCM(i);
+			encodeSize(GeneralUtil.dataStreamForFlowSize);
 	        	estimateSize(GeneralUtil.dataSummaryForFlowSize);
 	        	times++;
-			
 		}
 		System.out.println("DONE!****************************");
 	}
@@ -70,8 +68,7 @@ public class SSVS_2 {
 	public static void initCM(int index) {
 		switch (index) {
 	        case 0: case -1: C = generateCounter();
-	                 break;
-	      
+	        	break;
 	      
 	        default: break;
 		}
@@ -128,15 +125,14 @@ public class SSVS_2 {
 			String flowid = flowida[ii];
 			ii++;
 				
-                int i = rand.nextInt(d);
-                    int hashV = GeneralUtil.intHash(GeneralUtil.FNVHash1(flowid) ^ S[i]) ;
-                    int delta = 1;
-                    if ((hashV & 1) ==0) delta =-1;
-                    int j = hashV >>>2;
-					j =(j % w + w) % w;
-					//j =0;
-                    if ((hashV&2) ==0) C[0][j].increaseValue(delta, 0);
-                    else C[0][j].increaseValue(delta, 1);
+                	int i = rand.nextInt(d);
+		   	int hashV = GeneralUtil.intHash(GeneralUtil.FNVHash1(flowid) ^ S[i]) ;
+		    	int delta = 1;
+		    	if ((hashV & 1) ==0) delta =-1;
+		    	int j = hashV >>>2;
+			j =(j % w + w) % w;
+		    	if ((hashV&2) ==0) C[0][j].increaseValue(delta, 0);
+		    	else C[0][j].increaseValue(delta, 1);
 		}
 		long endTime = System.nanoTime();
 		double duration = 1.0 * (endTime - startTime) ;
