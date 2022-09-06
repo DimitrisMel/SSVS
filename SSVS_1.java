@@ -13,7 +13,7 @@ public class SSVS_1 {
 	public static int n = 0; 						// total number of packets
 	public static int flows = 0; 					// total number of flows
 	public static int avgAccess = 0; 				// average memory access for each packet
-	public static final int M = 1024 * 1024; 	// total memory space Mbits	
+	public static final int M = 1024 * 1024; 	// total memory space in bits	
 	public static VariableCounter[][] C;
 	public static Set<Integer> sizeMeasurementConfig = new HashSet<>(Arrays.asList(0)); // -1-regular CM; 0-enhanced CM; 1-Bitmap; 2-FM sketch; 3-HLL sketch
 	public static Set<Integer> spreadMeasurementConfig = new HashSet<>(Arrays.asList()); // 1-Bitmap; 2-FM sketch; 3-HLL sketch
