@@ -13,7 +13,7 @@ public class SSVS_2 {
 	public static int n = 0; 						// total number of packets
 	public static int flows = 0; 					// total number of flows
 	public static int avgAccess = 0; 				// average memory access for each packet
-	public static final int M = 1024 * 1024; 	// total memory space Mbits	
+	public static final int M = 1024 * 1024; 	// total memory space in bits	
 	public static VariableCounter[][] C;
 	public static Set<Integer> sizeMeasurementConfig = new HashSet<>(Arrays.asList(0)); // -1-regular CM; 0-enhanced CM; 1-Bitmap; 2-FM sketch; 3-HLL sketch
 	public static Set<Integer> spreadMeasurementConfig = new HashSet<>(Arrays.asList()); // 1-Bitmap; 2-FM sketch; 3-HLL sketch
@@ -21,10 +21,10 @@ public class SSVS_2 {
 	public static boolean isGetThroughput =false;
 	
 	/** parameters for count-min */
-	public static final int d = 4; 			// the number of rows in Count Min
-	public static int w = 1;				// the number of columns in Count Min
-	public static int u = 1;				// the size of each elementary data structure in Count Min.
-	public static int[] S = new int[d];		// random seeds for Count Min
+	public static final int d = 4; 			// the number of rows
+	public static int w = 1;				// the number of columns
+	public static int u = 1;				// the size of each elementary data structure
+	public static int[] S = new int[d];		// random seeds
 	public static int m = 1;				// number of bit/register in each unit (used for bitmap, FM sketch and HLL sketch)
 
 	
