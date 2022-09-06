@@ -42,7 +42,6 @@ public class SSVS_1 {
 		}
 		System.out.println("Start****************************");
 		/** measurement for flow sizes **/
-		
 		for (int i : sizeMeasurementConfig) {
 			times = 0;
 			initCM(i);
@@ -53,7 +52,7 @@ public class SSVS_1 {
 		System.out.println("DONE!****************************");
 	}
 	
-	// Init the Count Min for different elementary data structures.
+	// Init the counter for different elementary data structures.
 	public static void initCM(int index) {
 		switch (index) {
 	        case 0: case -1: C = generateCounter();
@@ -64,7 +63,7 @@ public class SSVS_1 {
 		generateCMRamdonSeeds();
 	}
 	
-	// Generate counter base Counter Min for flow size measurement.
+	// Generate counter base for flow size measurement.
 	public static VariableCounter[][] generateCounter() {
 		m = mValueCounter;
 		u = counterSize * mValueCounter;
@@ -78,7 +77,7 @@ public class SSVS_1 {
 		return B;
 	}
 	
-	// Generate random seeds for Counter Min.
+	// Generate random seeds
 	public static void generateCMRamdonSeeds() {
 		HashSet<Integer> seeds = new HashSet<Integer>();
 		int num = d;
@@ -92,7 +91,7 @@ public class SSVS_1 {
 		}
 	}
 
-	/** Encode elements to the Count Min for flow size measurement. */
+	/** Encode elements for flow size measurement. */
 	public static void encodeSize(String filePath) throws FileNotFoundException {
 		System.out.println("Encoding elements using " +  "s..." );
 		Scanner sc = new Scanner(new File(filePath));
