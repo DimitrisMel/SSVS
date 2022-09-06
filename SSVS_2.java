@@ -18,28 +18,17 @@ public class SSVS_2 {
 	public static Set<Integer> sizeMeasurementConfig = new HashSet<>(Arrays.asList(0));
 	public static boolean isGetThroughput =false;
 	
-	/** parameters for count-min */
+	/** parameters */
 	public static final int d = 4; 			// the number of rows
 	public static int w = 1;				// the number of columns
 	public static int u = 1;				// the size of each elementary data structure
 	public static int[] S = new int[d];		// random seeds
-	public static int m = 1;				// number of bit/register in each unit (used for bitmap, FM sketch and HLL sketch)
+	public static int m = 1;				// number of bit/register in each unit
 
 	
 	/** parameters for counter */
 	public static int mValueCounter = 1;			// only one counter in the counter data structure
 	public static int counterSize = 18;				// size of each unit
-
-	/** parameters for bitmap */
-	public static final int bitArrayLength = 5000;
-	
-	/** parameters for FM sketch **/
-	public static int mValueFM = 128;
-	public static final int FMsketchSize = 32;
-	
-	/** parameters for HLL sketch **/
-	public static int mValueHLL = 128;
-	public static final int HLLSize = 5;
 
 	public static int times = 0;
 	
@@ -64,7 +53,7 @@ public class SSVS_2 {
 		System.out.println("DONE!****************************");
 	}
 	
-	// Init the Count Min for different elementary data structures.
+	// Init the counter for different elementary data structures.
 	public static void initCM(int index) {
 		switch (index) {
 	        case 0: case -1: C = generateCounter();
@@ -75,7 +64,7 @@ public class SSVS_2 {
 		generateCMRamdonSeeds();
 	}
 	
-	// Generate counter base Counter Min for flow size measurement.
+	// Generate counter base for flow size measurement.
 	public static VariableCounter[][] generateCounter() {
 		m = mValueCounter;
 		u = counterSize * mValueCounter;
@@ -89,7 +78,7 @@ public class SSVS_2 {
 		return B;
 	}
 	
-	// Generate random seeds for Counter Min.
+	// Generate random seeds
 	public static void generateCMRamdonSeeds() {
 		HashSet<Integer> seeds = new HashSet<Integer>();
 		int num = d;
@@ -103,7 +92,7 @@ public class SSVS_2 {
 		}
 	}
 
-	/** Encode elements to the Count Min for flow size measurement. */
+	/** Encode elements for flow size measurement. */
 	public static void encodeSize(String filePath) throws FileNotFoundException {
 		System.out.println("Encoding elements using " +  "s..." );
 		Scanner sc = new Scanner(new File(filePath));
@@ -150,7 +139,7 @@ public class SSVS_2 {
 		PrintWriter pw = new PrintWriter(new File(resultFilePath));
 		System.out.println("Result directory: " + resultFilePath); 
 
-		//Query fake flows. Change this to include all counters
+		//Query fake flows
 		int sumEstimate = 0;
 		Random rand = new Random();
 		for (int k=0; k<20_000; k++) {
