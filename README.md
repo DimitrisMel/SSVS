@@ -1,5 +1,5 @@
 # Single Update Sketch with Variable Counter Structure (SSVS)
-Paper #206 submitted to Infocom 2023
+Paper submitted to VDLB 2023
 
 In order to run this project, you will need a packet stream txt file in the format
 
